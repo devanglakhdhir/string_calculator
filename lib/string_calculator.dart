@@ -22,7 +22,17 @@ class StringCalculator {
       delimiter = delimiters.join('|');
     }
 
+    //split input using computed delimiters
+    final numList =
+        numberString.split(RegExp(delimiter)).map(int.parse).toList();
 
-    return int.parse(numbers);
+    //check for negative number
+    final negative = numList.where((n) => n < 0).toList();
+    if (negative.isNotEmpty) {
+      throw Exception('Negative not allowed ${negative.join(', ')}');
+    }
+
+    // Sum all numbers (handling any amount of numbers)
+    return numList.reduce((sum, number) => sum + number);
   }
 }
